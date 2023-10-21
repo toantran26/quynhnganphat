@@ -1,0 +1,394 @@
+@import "layout";
+
+nav {
+    margin-bottom: 30px;
+    width: 100%;
+    background-image: url("/frontend/images/background-partner-nav.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    padding: 85px 0 108px 0;
+    @include extra-small {
+        margin-bottom: 20px;
+    }
+
+    div.background__opacity {
+        background: #3c4059;
+        opacity: 0.8;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    div.images__nav {
+        max-width: 773px;
+        object-fit: cover;
+        max-height: 455px;
+        border-radius: 4px;
+        overflow: hidden;
+
+        img {
+            border-radius: 4px;
+            width: 100%;
+        }
+    }
+
+    div.content__box__nav {
+        z-index: 1;
+        max-width: 585px;
+        width: max-content;
+        padding: 47px 32px 43px 80px;
+        border-radius: 0px 4px 0px 0px;
+        backdrop-filter: blur(50px);
+        background: #ffffff;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        p.label {
+            margin-bottom: 12px;
+            font-family: "SF Pro Display";
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 24px;
+            color: #02b3ac;
+            background: #02b3ac29;
+            width: max-content;
+            padding: 6px 20px;
+            box-shadow: 0 3px 6px rgba(168, 168, 168, 0.1);
+            border-radius: 4px;
+            @include extra-small {
+                padding: 10px 17px;
+                font-size: 10px;
+                font-weight: 500;
+                line-height: 12px;
+            }
+        }
+
+        p.title {
+            font-family: "SF Pro Display";
+            font-style: normal;
+            color: #27343a;
+            font-size: 36px;
+            line-height: 45px;
+            font-weight: 600;
+            padding-top: 12px;
+            margin-bottom: 28px;
+            @include extra-small {
+                line-height: 23px;
+                font-size: 18px;
+                font-weight: 700;
+                margin-bottom: 0;
+            }
+        }
+
+        p.content {
+            font-family: "SF Pro Display";
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 26px;
+            color: #27343a;
+            margin-bottom: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4;
+            word-break: break-word;
+            display: -webkit-box;
+            @include extra-small {
+                display: none;
+            }
+        }
+
+        @include extra-small {
+            max-width: 298px;
+            padding: 22px 20px 8px 20px;
+        }
+    }
+
+    div.circle__electric__box {
+        opacity: 0.1;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        div.circle__electric {
+            max-width: 398.96px;
+            width: 100%;
+            border: 1px solid #27343a;
+            background: transparent;
+            max-height: 398.96px;
+            height: 100%;
+            position: absolute;
+            border-radius: 50%;
+            transform: rotate(29.69deg);
+            z-index: 1;
+            top: 90%;
+            right: 88%;
+            animation: spin infinite 6s linear;
+            @include extra-small {
+                max-width: 143.96px;
+                max-height: 143.96px;
+                border: 0.5px solid #27343a;
+                top: 94%;
+                right: 82%;
+            }
+
+            &:first-child {
+                top: 91%;
+                right: 83%;
+                animation: spin-down infinite 5s linear;
+                @include extra-small {
+                    top: 93%;
+                    right: 74%;
+                }
+            }
+
+            &:last-child {
+                top: 102%;
+                right: 86%;
+                animation: spin-down infinite 7s linear;
+                @include extra-small {
+                    top: 89%;
+                    right: 79%;
+                }
+            }
+
+            div.electric__item {
+                width: 12px;
+                height: 12px;
+                background: #27343a;
+                position: absolute;
+                border-radius: 50%;
+                top: -6px;
+                left: 50%;
+                @include extra-small {
+                    width: 3.51px;
+                    height: 3.51px;
+                    top: -2px;
+                }
+
+                &:first-child {
+                    top: 99%;
+                    left: 50%;
+                }
+            }
+        }
+    }
+}
+
+main {
+    padding-top: 30px;
+
+    div.feed__back__customer {
+        p.title {
+            color: #27343a;
+            line-height: 48px;
+            font-style: normal;
+            text-align: center;
+            font-size: 40px;
+            font-weight: 700;
+            font-family: "SF Pro Display";
+            margin-bottom: 40px;
+            @include extra-small {
+                line-height: 29px;
+                font-size: 24px;
+                font-weight: 700;
+                max-width: 204px;
+                margin: auto;
+                margin-bottom: 20px;
+            }
+        }
+
+        div.feedback__partner__box {
+            background-image: url("/frontend/images/feedback-background-partner.jpg");
+            padding: 107px 0 58px 0;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: top;
+            position: relative;
+            display: flex;
+            align-items: center;
+            @include extra-small {
+                padding: 36px 0 37px 0;
+            }
+
+            div.background__feedback__opacity {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(
+                    90.09deg,
+                    #008e83 -6.64%,
+                    #2e58a6 101.01%
+                );
+                opacity: 0.8;
+                transform: matrix(-1, 0, 0, 1, 0, 0);
+                top: 0;
+            }
+
+            div.feedback__list__carousel {
+                div.item {
+                    margin-bottom: 84px;
+                    @include extra-small {
+                        margin-bottom: 22px;
+                    }
+
+                    img {
+                        max-height: 27px;
+                        max-width: 100%;
+                        width: max-content;
+                        margin-bottom: 30px;
+                    }
+
+                    p.feedback__content {
+                        font-family: "SF Pro Display";
+                        font-style: italic;
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 28px;
+                        color: #ffffff;
+                        margin-bottom: 15px;
+                    }
+
+                    p.source__feedback {
+                        font-family: "SF Pro Display";
+                        font-weight: 700;
+                        font-size: 14px;
+                        line-height: 24px;
+                        color: #ffffff;
+                        margin-bottom: 0;
+
+                        a {
+                            font-family: "SF Pro Display";
+                            font-weight: 700;
+                            font-size: 14px;
+                            line-height: 24px;
+                            color: #ffffff;
+                        }
+                    }
+                }
+
+                div.owl-dots {
+                    text-align: center;
+
+                    button.owl-dot {
+                        width: 50px;
+                        height: 3px;
+                        background: #bdbdbd;
+                        border-radius: 2px;
+                        margin: 0 5px;
+                    }
+
+                    button.active {
+                        background: #02b3ac;
+                    }
+                }
+            }
+        }
+    }
+
+    div.logo__list__partner {
+        padding-top: 60px;
+        padding-bottom: 60px;
+        background: #f6f6f6;
+        @include extra-small {
+            padding-top: 32px;
+            padding-bottom: 30px;
+        }
+
+        p.title {
+            font-family: "SF Pro Display";
+            font-weight: 700;
+            font-size: 40px;
+            line-height: 48px;
+            text-align: center;
+            color: #27343a;
+            margin-bottom: 40px;
+            @include extra-small {
+                max-width: 290px;
+                font-weight: 700;
+                font-size: 24px;
+                line-height: 29px;
+                text-align: center;
+                margin: auto;
+                margin-bottom: 20px;
+            }
+        }
+
+        div.list__logo {
+            div.item {
+                display: flex;
+                flex-wrap: inherit;
+                justify-content: center;
+                @include extra-small {
+                    margin-bottom: 12px;
+                }
+
+                a {
+                    display: flex;
+                    width: 100%;
+                    padding: 7px 0;
+                    background: #ffffff;
+                    overflow: hidden;
+                    max-height: 150px;
+
+                    img {
+                        width: 100%;
+                        object-fit: cover;
+                        max-height: 136px;
+                    }
+                }
+
+                p.name__partner {
+                    margin-bottom: 30px;
+                    margin-top: 20px;
+                    max-width: 229px;
+                    @include extra-small {
+                        display: none;
+                    }
+
+                    a {
+                        max-height: 60px;
+                        background: transparent;
+                        text-align: center;
+                        color: #27343a;
+                        line-height: 28px;
+                        font-size: 16px;
+                        font-family: "SF Pro Display";
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+
+        div.navigation_page {
+            margin-top: 36px;
+            @include extra-small {
+                margin-top: 0;
+                ul.pagination {
+                    margin: 0;
+                    margin-top: 10px;
+
+                    li.page-item {
+                        margin: 0;
+
+                        a.page-link {
+                            padding: 5px 10px;
+                        }
+                    }
+                }
+            }
+
+            a.page-link {
+                background: transparent;
+                border: none;
+            }
+        }
+    }
+}

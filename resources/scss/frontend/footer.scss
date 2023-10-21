@@ -1,0 +1,200 @@
+@import "layout";
+footer {
+    background-image: url("/frontend/images/image-footer.png");
+    background-repeat: no-repeat;
+    background-position: right bottom -4px;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+    div.logo__footer {
+        padding-top: 40px;
+        div.after__logo {
+            width: max-content;
+            position: relative;
+            padding-bottom: 25px;
+            &::after {
+                content: "";
+                width: 120%;
+                height: 3px;
+                position: absolute;
+                background-color: #02b3ac;
+                bottom: 0;
+                left: 0;
+            }
+        }
+    }
+    div.name__site__footer {
+        display: flex;
+        div.after__logo {
+            display: flex;
+            align-items: end;
+            width: max-content;
+            position: relative;
+            padding-bottom: 25px;
+            &::after {
+                content: "";
+                width: 120%;
+                height: 3px;
+                position: absolute;
+                background-color: #02b3ac;
+                bottom: 0;
+                left: 0;
+            }
+            a {
+                font-family: "SF Pro Display";
+                font-weight: 700;
+                font-size: 15px;
+                line-height: 24px;
+                text-transform: uppercase;
+                color: #5b5b5b;
+            }
+        }
+    }
+    div.menu__footer {
+        margin-top: 20px;
+        div.title__site__footer {
+            p {
+                margin: 0;
+                font-family: "SF Pro Display";
+                font-weight: 700;
+                font-size: 15px;
+                line-height: 24px;
+                text-transform: uppercase;
+                color: #5b5b5b;
+            }
+        }
+        div.box__menu__footer {
+            ul {
+                list-style: none;
+                display: flex;
+                flex-wrap: wrap;
+                margin: 0;
+                li {
+                    flex: 0 22 25%;
+                    padding-bottom: 15px;
+
+                    a {
+                        font-family: "SF Pro Display";
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 24px;
+                        color: #5b5b5b;
+                        width: fit-content;
+                    }
+                }
+            }
+        }
+    }
+    div.contact__info__footer {
+        margin-top: 40px;
+        padding-bottom: 40px;
+        div.contact__address {
+            display: flex;
+            .contact__address__img {
+                padding: 20px;
+                border: 1px solid #02b3ac;
+                border-radius: 50%;
+            }
+            div.content__info {
+                margin-left: 20px;
+                .title {
+                    font-family: "SF Pro Display";
+                    font-weight: 700;
+                    font-size: 14px;
+                    line-height: 24px;
+                    text-transform: uppercase;
+                    color: #5b5b5b;
+                    margin: 0;
+                }
+                .content {
+                    margin: 0;
+                    font-family: "SF Pro Display";
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 24px;
+                    color: #5b5b5b;
+                }
+            }
+        }
+    }
+}
+div.copy__right {
+    background: #e9ebf1;
+    p.title {
+        font-family: "SF Pro Display";
+        font-weight: 500;
+        font-size: 11px;
+        line-height: 28px;
+        color: #7d7d7d;
+        margin: 0;
+        a {
+            color: #7d7d7d;
+        }
+    }
+    ul.site__map {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        justify-content: end;
+        li {
+            padding: 0 10px;
+            &:last-child {
+                padding-right: 0;
+            }
+            a {
+                color: #7d7d7d;
+                line-height: 28px;
+                font-size: 11px;
+                font-weight: 500;
+                font-family: "SF Pro Display";
+            }
+        }
+    }
+}
+@include extra1-small {
+    footer {
+        background-image: url(/frontend/svg/image-footer-mb.svg);
+        div.logo__footer {
+            padding-top: 30px;
+            div.after__logo {
+                padding-bottom: 15px;
+                &::after {
+                    width: 60%;
+                }
+            }
+        }
+        div.contact__info__footer {
+            margin-top: 20px;
+            padding-bottom: 0;
+            div.contact__address {
+                align-items: center;
+                padding: 5px 0;
+                img {
+                    max-width: 35px;
+                    max-height: 35px;
+                    padding: 5px;
+                }
+                div.content__info {
+                    .title {
+                        display: none;
+                    }
+                    .content {
+                        line-height: 22px;
+                    }
+                }
+            }
+            .social {
+                list-style: none;
+                display: flex;
+                margin: 20px 0;
+                li {
+                    padding-right: 15px;
+                }
+            }
+        }
+    }
+    div.copy__right p.title {
+        text-align: center;
+        font-size: 10px;
+        line-height: 15px;
+        padding: 8px 15px;
+    }
+}

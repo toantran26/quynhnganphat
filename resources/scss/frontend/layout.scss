@@ -1,0 +1,201 @@
+@import url("https://cdn.autoketing.org/sdk-cdn/popup-fullsize/fonts/SF_Pro_Display/SF_Pro_Display.css");
+
+@font-face {
+    font-family: "Google Sans";
+    src: url("/public/fonts/Google-Sans/GoogleSans-Regular.ttf")
+        format("truetype");
+}
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "SF Pro Display";
+    letter-spacing: 0;
+}
+
+$small: 576px;
+$medium: 768px;
+$large: 992px;
+$extra-large: 1200px;
+
+@mixin extra-small {
+    @media (max-width: #{$small}) {
+        @content;
+    }
+}
+@mixin extra1-small {
+    @media (max-width: #{$medium}) {
+        @content;
+    }
+}
+
+@mixin extra-medium {
+    @media (max-width: #{$large}) {
+        @content;
+    }
+}
+
+@mixin small {
+    @media (min-width: #{$small}) and (max-width: #{$medium}) {
+        @content;
+    }
+}
+
+@mixin medium {
+    @media (min-width: #{$medium}) and (max-width: #{$large}) {
+        @content;
+    }
+}
+
+@mixin extra-medium {
+    @media (max-width: #{$large}) {
+        @content;
+    }
+}
+
+@mixin large {
+    @media (min-width: #{$large}) and (max-width: #{$extra-large}) {
+        @content;
+    }
+}
+
+@mixin extra-large {
+    @media (min-width: #{$extra-large}) {
+        @content;
+    }
+}
+
+.container-fix {
+    max-width: 1200px;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    @include extra-small {
+        max-width: 100%;
+    }
+    @include small {
+        max-width: 540px;
+    }
+    @include small {
+        max-width: 760px;
+    }
+    @include large {
+        max-width: 990px;
+    }
+    @include extra-large {
+        max-width: 1200px;
+    }
+}
+.clear__row {
+    padding: 0;
+    margin: 0;
+}
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin-down {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+.pagination {
+    justify-content: center;
+    margin-top: 35px;
+    .page-item {
+        margin: 0 10px;
+        .page-link {
+            background-color: #ffffff;
+            color: #27343a;
+            border: 0.91px solid #ebebeb;
+            padding: 11px 15px;
+            &:focus {
+                box-shadow: none;
+            }
+            svg {
+                fill: #27343a;
+            }
+        }
+        &.active {
+            .page-link {
+                background-color: #02b3ac;
+                color: #ffffff;
+                border: 0;
+            }
+        }
+        &:last-child,
+        &:first-child {
+            .page-link {
+                border: 0;
+                border-radius: 0;
+                &.disabled {
+                    pointer-events: none;
+                    cursor: auto;
+                    svg {
+                        fill: #bdbdbd;
+                    }
+                }
+            }
+        }
+    }
+}
+.modal-accept {
+    max-width: 575px;
+    .modal-content {
+        padding: 25px 110px;
+        padding-top: 50px;
+        position: relative;
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+        h3 {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 24px;
+            text-align: center;
+            color: #2e58a6;
+            text-transform: uppercase;
+        }
+        #icon-accept {
+            margin: 30px auto;
+            max-width: 160px;
+            max-height: 160px;
+        }
+        p {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 22px;
+            color: #2e58a6;
+            margin-bottom: 0;
+            text-align: center;
+        }
+    }
+}
+.arrow-top {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    position: fixed;
+    right: 40px;
+    bottom: 80px;
+    overflow: hidden;
+    z-index: 9999;
+    border: 1px solid rgba(2, 179, 172, 1);
+    padding: 13px;
+    background-color: #ffffff;
+    opacity: 0.7;
+    @include extra1-small {
+        display: none;
+    }
+}
