@@ -50,7 +50,29 @@ header {
                     list-style: none;
                     margin: 0 12px;
                     position: relative;
-
+                    svg{
+                        position: absolute;
+                        left: 10px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+                    input{
+                        color: #ACACAC;
+                        font-family: "Roboto";
+                        font-size: 19px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                        border-radius: 8px;
+                        background: #FFF;
+                        width: 239px;
+                        height: 36px;
+                        border: none;
+                        padding-left: 42px;
+                        &:focus-visible{
+                            outline: none;
+                        }
+                    }
                     &:first-child {
                         margin-left: 0;
                         display: flex;
@@ -137,18 +159,19 @@ header {
 
         div.chat__menu__header {
             text-align: center;
-            background-color: #02b3ac;
             display: flex;
             justify-content: center;
 
             a {
                 display: flex;
                 align-items: center;
-                color: #ffffff;
-                font-family: "SF Pro Display";
-                font-weight: 600;
-                font-size: 14px;
-                line-height: 24px;
+                color: #F00;
+                font-family: "UTM Neo Sans Intel";
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: normal;
+                text-transform: uppercase;
 
                 img {
                     margin-right: 8px;
@@ -160,10 +183,10 @@ header {
             div.menu__header {
                 ul {
                     display: flex;
+                    justify-content: center;
                     list-style: none;
                     margin: 0;
                     .item {
-                        margin: 22px 10px;
                         padding: 10px 10px;
                         position: relative;
                         &.active {
@@ -173,13 +196,13 @@ header {
                                 max-width: 75px;
                                 height: 3px;
                                 position: absolute;
-                                bottom: -22px;
+                                bottom: 0;
                                 left: 50%;
                                 transform: translateX(-50%);
-                                background-color: #02b3ac;
+                                background-color: #f00;
                             }
                             a {
-                                color: #02b3ac;
+                                color: #f00;
                             }
                         }
 
@@ -188,16 +211,17 @@ header {
                         }
                         &:hover {
                             a {
-                                color: #02b3ac;
+                                color: #f00;
                             }
                         }
 
                         a {
-                            font-family: "SF Pro Display";
-                            font-weight: 600;
-                            font-size: 14px;
-                            line-height: 24px;
-                            color: #27343a;
+                            color: #756F6F;
+                            font-family: "Roboto";
+                            font-size: 16px;
+                            font-weight: 700;
+                            font-style: normal;
+                            line-height: normal;
                             img {
                                 margin-left: 6px;
                             }
@@ -220,7 +244,7 @@ header {
                             border-radius: 4px;
                             top: 35px;
                             visibility: hidden;
-                            background: #ffffff;
+                            background: #F00000;
                             z-index: 10000;
                             transition: all 0.4s ease-out;
                             padding: 5px;
@@ -233,7 +257,7 @@ header {
                                 margin-left: 15px;
                                 padding: 5px 0;
                                 padding-right: 20px;
-                                border-bottom: 0.5px solid #a9acaa;
+                                border-bottom: 0.5px solid #ffffff;
                                 &:last-child {
                                     border: 0;
                                     &.active {
@@ -241,18 +265,18 @@ header {
                                     }
                                 }
                                 a {
-                                    color: #27343a;
+                                    color: #ffffff;
                                     line-height: 17px;
                                 }
                                 &:hover {
                                     a {
-                                        color: #02b3ac;
+                                        color: #41ff49;
                                     }
                                 }
                                 &.active {
-                                    border-bottom: 0.5px solid #02b3ac;
+                                    border-bottom: 0.5px solid #f00;
                                     a {
-                                        color: #02b3ac;
+                                        color: #41ff49;
                                     }
                                 }
                             }
@@ -396,6 +420,7 @@ header {
 
     #menu:checked ~ .menu_mini {
         left: 0;
+        margin-top: -3px;
     }
 }
 @include extra-medium {
@@ -415,7 +440,7 @@ header {
             padding: 10px 0;
             position: fixed;
             background-color: #F5F5F5;
-            border-bottom: 1px solid #F5F5F5;
+            border-bottom: 1px solid #f00000;
             z-index: 9999;
             top: 0;
             left: 0;
