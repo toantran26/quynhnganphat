@@ -1,132 +1,1293 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('backend.layout.index')
+@section('style')
+    <link rel="stylesheet" href="{{ asset('library/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
+    <style>
+        .bootstrap-tagsinput {
+            width: 100%;
+            padding: 6px;
+        }
 
-        <title>Laravel</title>
+        .bootstrap-tagsinput .tag {
+            margin-right: 2px;
+            color: white !important;
+            background-color: #969696;
+            padding: 1px 3px 1px 3px;
+            font-size: 100%;
+            vertical-align: baseline;
+        }
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        .list_content_item {
+            margin-bottom: 30px;
+        }
 
-        <!-- Styles -->
-        <style>
-            /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}a{background-color:transparent}[hidden]{display:none}html{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;line-height:1.5}*,:after,:before{box-sizing:border-box;border:0 solid #e2e8f0}a{color:inherit;text-decoration:inherit}svg,video{display:block;vertical-align:middle}video{max-width:100%;height:auto}.bg-white{--bg-opacity:1;background-color:#fff;background-color:rgba(255,255,255,var(--bg-opacity))}.bg-gray-100{--bg-opacity:1;background-color:#f7fafc;background-color:rgba(247,250,252,var(--bg-opacity))}.border-gray-200{--border-opacity:1;border-color:#edf2f7;border-color:rgba(237,242,247,var(--border-opacity))}.border-t{border-top-width:1px}.flex{display:flex}.grid{display:grid}.hidden{display:none}.items-center{align-items:center}.justify-center{justify-content:center}.font-semibold{font-weight:600}.h-5{height:1.25rem}.h-8{height:2rem}.h-16{height:4rem}.text-sm{font-size:.875rem}.text-lg{font-size:1.125rem}.leading-7{line-height:1.75rem}.mx-auto{margin-left:auto;margin-right:auto}.ml-1{margin-left:.25rem}.mt-2{margin-top:.5rem}.mr-2{margin-right:.5rem}.ml-2{margin-left:.5rem}.mt-4{margin-top:1rem}.ml-4{margin-left:1rem}.mt-8{margin-top:2rem}.ml-12{margin-left:3rem}.-mt-px{margin-top:-1px}.max-w-6xl{max-width:72rem}.min-h-screen{min-height:100vh}.overflow-hidden{overflow:hidden}.p-6{padding:1.5rem}.py-4{padding-top:1rem;padding-bottom:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.pt-8{padding-top:2rem}.fixed{position:fixed}.relative{position:relative}.top-0{top:0}.right-0{right:0}.shadow{box-shadow:0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06)}.text-center{text-align:center}.text-gray-200{--text-opacity:1;color:#edf2f7;color:rgba(237,242,247,var(--text-opacity))}.text-gray-300{--text-opacity:1;color:#e2e8f0;color:rgba(226,232,240,var(--text-opacity))}.text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}.text-gray-500{--text-opacity:1;color:#a0aec0;color:rgba(160,174,192,var(--text-opacity))}.text-gray-600{--text-opacity:1;color:#718096;color:rgba(113,128,150,var(--text-opacity))}.text-gray-700{--text-opacity:1;color:#4a5568;color:rgba(74,85,104,var(--text-opacity))}.text-gray-900{--text-opacity:1;color:#1a202c;color:rgba(26,32,44,var(--text-opacity))}.underline{text-decoration:underline}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.w-5{width:1.25rem}.w-8{width:2rem}.w-auto{width:auto}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}@media (min-width:640px){.sm\:rounded-lg{border-radius:.5rem}.sm\:block{display:block}.sm\:items-center{align-items:center}.sm\:justify-start{justify-content:flex-start}.sm\:justify-between{justify-content:space-between}.sm\:h-20{height:5rem}.sm\:ml-0{margin-left:0}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:pt-0{padding-top:0}.sm\:text-left{text-align:left}.sm\:text-right{text-align:right}}@media (min-width:768px){.md\:border-t-0{border-top-width:0}.md\:border-l{border-left-width:1px}.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (min-width:1024px){.lg\:px-8{padding-left:2rem;padding-right:2rem}}@media (prefers-color-scheme:dark){.dark\:bg-gray-800{--bg-opacity:1;background-color:#2d3748;background-color:rgba(45,55,72,var(--bg-opacity))}.dark\:bg-gray-900{--bg-opacity:1;background-color:#1a202c;background-color:rgba(26,32,44,var(--bg-opacity))}.dark\:border-gray-700{--border-opacity:1;border-color:#4a5568;border-color:rgba(74,85,104,var(--border-opacity))}.dark\:text-white{--text-opacity:1;color:#fff;color:rgba(255,255,255,var(--text-opacity))}.dark\:text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}.dark\:text-gray-500{--tw-text-opacity:1;color:#6b7280;color:rgba(107,114,128,var(--tw-text-opacity))}}
-        </style>
+        .list_content_item .header_cont {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            background: #f0f8ff;
+            padding: 5px;
+            border-radius: 6px;
+        }
 
-        <style>
-            body {
-                font-family: 'Nunito', sans-serif;
-            }
-        </style>
-    </head>
-    <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+        .list_content_item .header_cont .info_user img {
+            max-width: 30px;
+            max-height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+        .list_content_item .header_cont .btn_action span {
+            margin: 0 5px;
+        }
+    </style>
 
-            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-                    <svg viewBox="0 0 651 192" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto text-gray-700 sm:h-20">
-                        <g clip-path="url(#clip0)" fill="#EF3B2D">
-                            <path d="M248.032 44.676h-16.466v100.23h47.394v-14.748h-30.928V44.676zM337.091 87.202c-2.101-3.341-5.083-5.965-8.949-7.875-3.865-1.909-7.756-2.864-11.669-2.864-5.062 0-9.69.931-13.89 2.792-4.201 1.861-7.804 4.417-10.811 7.661-3.007 3.246-5.347 6.993-7.016 11.239-1.672 4.249-2.506 8.713-2.506 13.389 0 4.774.834 9.26 2.506 13.459 1.669 4.202 4.009 7.925 7.016 11.169 3.007 3.246 6.609 5.799 10.811 7.66 4.199 1.861 8.828 2.792 13.89 2.792 3.913 0 7.804-.955 11.669-2.863 3.866-1.908 6.849-4.533 8.949-7.875v9.021h15.607V78.182h-15.607v9.02zm-1.431 32.503c-.955 2.578-2.291 4.821-4.009 6.73-1.719 1.91-3.795 3.437-6.229 4.582-2.435 1.146-5.133 1.718-8.091 1.718-2.96 0-5.633-.572-8.019-1.718-2.387-1.146-4.438-2.672-6.156-4.582-1.719-1.909-3.032-4.152-3.938-6.73-.909-2.577-1.36-5.298-1.36-8.161 0-2.864.451-5.585 1.36-8.162.905-2.577 2.219-4.819 3.938-6.729 1.718-1.908 3.77-3.437 6.156-4.582 2.386-1.146 5.059-1.718 8.019-1.718 2.958 0 5.656.572 8.091 1.718 2.434 1.146 4.51 2.674 6.229 4.582 1.718 1.91 3.054 4.152 4.009 6.729.953 2.577 1.432 5.298 1.432 8.162-.001 2.863-.479 5.584-1.432 8.161zM463.954 87.202c-2.101-3.341-5.083-5.965-8.949-7.875-3.865-1.909-7.756-2.864-11.669-2.864-5.062 0-9.69.931-13.89 2.792-4.201 1.861-7.804 4.417-10.811 7.661-3.007 3.246-5.347 6.993-7.016 11.239-1.672 4.249-2.506 8.713-2.506 13.389 0 4.774.834 9.26 2.506 13.459 1.669 4.202 4.009 7.925 7.016 11.169 3.007 3.246 6.609 5.799 10.811 7.66 4.199 1.861 8.828 2.792 13.89 2.792 3.913 0 7.804-.955 11.669-2.863 3.866-1.908 6.849-4.533 8.949-7.875v9.021h15.607V78.182h-15.607v9.02zm-1.432 32.503c-.955 2.578-2.291 4.821-4.009 6.73-1.719 1.91-3.795 3.437-6.229 4.582-2.435 1.146-5.133 1.718-8.091 1.718-2.96 0-5.633-.572-8.019-1.718-2.387-1.146-4.438-2.672-6.156-4.582-1.719-1.909-3.032-4.152-3.938-6.73-.909-2.577-1.36-5.298-1.36-8.161 0-2.864.451-5.585 1.36-8.162.905-2.577 2.219-4.819 3.938-6.729 1.718-1.908 3.77-3.437 6.156-4.582 2.386-1.146 5.059-1.718 8.019-1.718 2.958 0 5.656.572 8.091 1.718 2.434 1.146 4.51 2.674 6.229 4.582 1.718 1.91 3.054 4.152 4.009 6.729.953 2.577 1.432 5.298 1.432 8.162 0 2.863-.479 5.584-1.432 8.161zM650.772 44.676h-15.606v100.23h15.606V44.676zM365.013 144.906h15.607V93.538h26.776V78.182h-42.383v66.724zM542.133 78.182l-19.616 51.096-19.616-51.096h-15.808l25.617 66.724h19.614l25.617-66.724h-15.808zM591.98 76.466c-19.112 0-34.239 15.706-34.239 35.079 0 21.416 14.641 35.079 36.239 35.079 12.088 0 19.806-4.622 29.234-14.688l-10.544-8.158c-.006.008-7.958 10.449-19.832 10.449-13.802 0-19.612-11.127-19.612-16.884h51.777c2.72-22.043-11.772-40.877-33.023-40.877zm-18.713 29.28c.12-1.284 1.917-16.884 18.589-16.884 16.671 0 18.697 15.598 18.813 16.884h-37.402zM184.068 43.892c-.024-.088-.073-.165-.104-.25-.058-.157-.108-.316-.191-.46-.056-.097-.137-.176-.203-.265-.087-.117-.161-.242-.265-.345-.085-.086-.194-.148-.29-.223-.109-.085-.206-.182-.327-.252l-.002-.001-.002-.002-35.648-20.524a2.971 2.971 0 00-2.964 0l-35.647 20.522-.002.002-.002.001c-.121.07-.219.167-.327.252-.096.075-.205.138-.29.223-.103.103-.178.228-.265.345-.066.089-.147.169-.203.265-.083.144-.133.304-.191.46-.031.085-.08.162-.104.25-.067.249-.103.51-.103.776v38.979l-29.706 17.103V24.493a3 3 0 00-.103-.776c-.024-.088-.073-.165-.104-.25-.058-.157-.108-.316-.191-.46-.056-.097-.137-.176-.203-.265-.087-.117-.161-.242-.265-.345-.085-.086-.194-.148-.29-.223-.109-.085-.206-.182-.327-.252l-.002-.001-.002-.002L40.098 1.396a2.971 2.971 0 00-2.964 0L1.487 21.919l-.002.002-.002.001c-.121.07-.219.167-.327.252-.096.075-.205.138-.29.223-.103.103-.178.228-.265.345-.066.089-.147.169-.203.265-.083.144-.133.304-.191.46-.031.085-.08.162-.104.25-.067.249-.103.51-.103.776v122.09c0 1.063.568 2.044 1.489 2.575l71.293 41.045c.156.089.324.143.49.202.078.028.15.074.23.095a2.98 2.98 0 001.524 0c.069-.018.132-.059.2-.083.176-.061.354-.119.519-.214l71.293-41.045a2.971 2.971 0 001.489-2.575v-38.979l34.158-19.666a2.971 2.971 0 001.489-2.575V44.666a3.075 3.075 0 00-.106-.774zM74.255 143.167l-29.648-16.779 31.136-17.926.001-.001 34.164-19.669 29.674 17.084-21.772 12.428-43.555 24.863zm68.329-76.259v33.841l-12.475-7.182-17.231-9.92V49.806l12.475 7.182 17.231 9.92zm2.97-39.335l29.693 17.095-29.693 17.095-29.693-17.095 29.693-17.095zM54.06 114.089l-12.475 7.182V46.733l17.231-9.92 12.475-7.182v74.537l-17.231 9.921zM38.614 7.398l29.693 17.095-29.693 17.095L8.921 24.493 38.614 7.398zM5.938 29.632l12.475 7.182 17.231 9.92v79.676l.001.005-.001.006c0 .114.032.221.045.333.017.146.021.294.059.434l.002.007c.032.117.094.222.14.334.051.124.088.255.156.371a.036.036 0 00.004.009c.061.105.149.191.222.288.081.105.149.22.244.314l.008.01c.084.083.19.142.284.215.106.083.202.178.32.247l.013.005.011.008 34.139 19.321v34.175L5.939 144.867V29.632h-.001zm136.646 115.235l-65.352 37.625V148.31l48.399-27.628 16.953-9.677v33.862zm35.646-61.22l-29.706 17.102V66.908l17.231-9.92 12.475-7.182v33.841z"/>
-                        </g>
-                    </svg>
-                </div>
 
-                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                    <div class="grid grid-cols-1 md:grid-cols-2">
-                        <div class="p-6">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laravel.com/docs" class="underline text-gray-900 dark:text-white">Documentation</a></div>
-                            </div>
+    <style type="text/css">
+        .poin_check_seo {
+            font-size: 16px;
+            padding-top: 1px;
+        }
 
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laravel has wonderful, thorough documentation covering every aspect of the framework. Whether you are new to the framework or have previous experience with Laravel, we recommend reading all of the documentation from beginning to end.
-                                </div>
-                            </div>
-                        </div>
+        .poin_check_seo span {
+            padding: 0px 5px;
+        }
 
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laracasts.com" class="underline text-gray-900 dark:text-white">Laracasts</a></div>
-                            </div>
+        #open_checkSeo {
+            background-color: #fff;
+            padding: 10px;
+        }
 
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript development. Check them out, see for yourself, and massively level up your development skills in the process.
-                                </div>
-                            </div>
-                        </div>
+        .title_seo_box .tit_seo {
+            font-size: 15px;
+            font-weight: bold;
+            background: #285e81;
+            padding: 5px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
 
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laravel-news.com/" class="underline text-gray-900 dark:text-white">Laravel News</a></div>
-                            </div>
+        .btn_close_hide_seo,
+        #btn_open_hide_seo {
+            color: white;
+        }
 
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laravel News is a community driven portal and newsletter aggregating all of the latest and most important news in the Laravel ecosystem, including new package releases and tutorials.
-                                </div>
-                            </div>
-                        </div>
+        .close_box_seo {
+            background: #136bc8;
+            padding: 8px 12px;
+            color: #fff;
+        }
 
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-l">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold text-gray-900 dark:text-white">Vibrant Ecosystem</div>
-                            </div>
+        .close_box_seo .caption {
+            float: left;
+            font-size: 16px;
+            padding-top: 1px;
+        }
 
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laravel's robust library of first-party tools and libraries, such as <a href="https://forge.laravel.com" class="underline">Forge</a>, <a href="https://vapor.laravel.com" class="underline">Vapor</a>, <a href="https://nova.laravel.com" class="underline">Nova</a>, and <a href="https://envoyer.io" class="underline">Envoyer</a> help you take your projects to the next level. Pair them with powerful open source libraries like <a href="https://laravel.com/docs/billing" class="underline">Cashier</a>, <a href="https://laravel.com/docs/dusk" class="underline">Dusk</a>, <a href="https://laravel.com/docs/broadcasting" class="underline">Echo</a>, <a href="https://laravel.com/docs/horizon" class="underline">Horizon</a>, <a href="https://laravel.com/docs/sanctum" class="underline">Sanctum</a>, <a href="https://laravel.com/docs/telescope" class="underline">Telescope</a>, and more.
-                                </div>
-                            </div>
-                        </div>
+        .poin_check_seo span i {
+            color: #00ff29;
+            font-weight: bold;
+        }
+
+        a.coppytags {
+            color: #fff;
+            background: #d81a3a;
+            padding: 6px 10px;
+            text-decoration: none;
+        }
+
+        .btn_checkSeo {
+            border: 1px solid #d84a38;
+            color: #fff;
+            background: #d84a38;
+            padding: 5px 6px;
+        }
+
+        .Seo_show_search_demo {
+            font-size: 20px;
+            color: #1a0dab;
+            margin-bottom: 7px;
+        }
+
+        .sapo_seo {
+            margin-top: 7px;
+        }
+
+        .hiden_total_seo {
+            visibility: hidden;
+        }
+
+        .disabled_btn_seo {
+            color: #fff;
+            background: #4b8df8;
+            padding: 8px 14px;
+            font-size: 15px;
+        }
+
+        .disabled_btn_seo:hover {
+            color: #fff;
+            text-decoration: none;
+            background: #0362fd;
+        }
+
+        .cnt p:after {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #d81a3a;
+            top: 4px;
+            left: 0;
+            border-radius: 50%;
+        }
+
+        .cnt.successs p:after {
+            background: #00ff29;
+        }
+
+        .cnt p {
+            position: relative;
+            padding-left: 15px;
+        }
+
+        b.red {
+            color: #d81a3a;
+        }
+
+        b.bluec {
+            color: #0058e6;
+        }
+
+        #img_preview {
+            max-width: 100% !important;
+            max-height: 100% !important;
+            width: auto !important;
+            height: auto !important;
+            position: absolute !important;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto !important;
+        }
+
+        .option_avatar {
+            margin-top: 15px;
+        }
+
+        .well .btn.btn-primary {
+            margin: 5px 0;
+        }
+
+        .well {
+            padding: 8px 0;
+            border-left: 0;
+            border-right: 0;
+            transition: all 0.3s ease;
+            /* Hiệu ứng chuyển đổi */
+        }
+
+        .fixed-well {
+            position: fixed;
+            top: 0;
+            left: 260px;
+            right: 0;
+            z-index: 999;
+        }
+    </style>
+@endsection
+@section('content')
+    <div class="content-wrapper mt-1" style="">
+        {{-- <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Sửa bài viết</h1>
                     </div>
-                </div>
-
-                <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
-                    <div class="text-center text-sm text-gray-500 sm:text-left">
-                        <div class="flex items-center">
-                            <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" class="-mt-px w-5 h-5 text-gray-400">
-                                <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
-
-                            <a href="https://laravel.bigcartel.com" class="ml-1 underline">
-                                Shop
-                            </a>
-
-                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="ml-4 -mt-px w-5 h-5 text-gray-400">
-                                <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                            </svg>
-
-                            <a href="https://github.com/sponsors/taylorotwell" class="ml-1 underline">
-                                Sponsor
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Blog</li>
+                        </ol>
                     </div>
                 </div>
             </div>
+        </section> --}}
+        <div class="container-fluid">
+            <div class="">
+                {{-- <div class="card-header border-0 mt-2 mb-2">
+                <h3 class="card-title"><i class="fas fa-info-circle"></i> Thông tin bài viết</h3>
+            </div> --}}
+                @if (@$editing)
+                    <div class="alert alert-block alert-error fade in">
+                        <button type="button" class="close" data-dismiss="alert"></button>
+                        <h4 class="alert-heading" style="margin-bottom: 8px;">Cảnh báo!</h4>
+                        <p id="has_user_editing">Tin này đang được sửa bởi <b> {{ $editing->user->name }} </b> . Bạn sẽ tự
+                            động
+                            thoát ra
+                            trong <b id="lbl_countdown_dupl">60</b> giây nữa</p>
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                var i = 60;
+                                setInterval(function() {
+                                    i--;
+                                    if (i >= 0) $('#lbl_countdown_dupl').text(i);
+                                    if (i == 0) window.history.back();
+                                }, 1000);
+                                var html =
+                                    '<div style="position: absolute;left: 0;top: 0;background: #FFF;width: 100%;height: 100%;opacity: 0.5;z-index: 999;"></div>';
+                                $('#submitForm').css('position', 'relative').append(html);
+                            });
+                        </script>
+                    </div>
+                @endif
+            </div>
+            <form action="{{ route('update-post') }}" method="post" id="submitForm" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="id" value="{{ $data['post']->id }}" id="post_id">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="well" style="padding: 8px 0;border-left: 0;border-right: 0">
+                            <div class="ml-3">
+                                @include('backend.post.byStatusPost', [
+                                    'status' => $data['post']->status,
+                                ])
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="card  card-outline card-info">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-info-circle"></i> Thông tin bài viết</h3>
+                                <p class="float-right"><a style="color: " target="_blank"
+                                        href="{{ route('list-history', ['id' => $data['post']->id]) }}">Lịch sử chỉnh sửa
+                                        bài</a>
+                                </p>
+                            </div>
+                            <div class="card-body">
+                                {{-- <div class="well" style="padding: 8px 0;border-left: 0;border-right: 0">
+                                    <div class="">
+                                        @include('backend.post.byStatusPost', [
+                                            'status' => $data['post']->status,
+                                        ])
+
+                                    </div>
+                                </div> --}}
+                                <div class="form-group">
+                                    <div class="wrap-count field-news-title has-success mb-2 ">
+                                        <label class="control-label" for="news-title">Tiêu đề <span
+                                                style="color: red">*</span></label>
+                                        @error('title')
+                                            <p style="color: red; font-size: 14px">*
+                                                {{ Str::replace('title vi', 'title', $message) }}
+                                            </p>
+                                        @enderror
+                                        <input type="text" id="title" maxchar="24" value="{!! old('title', $data['post']->title) !!}"
+                                            class="maxchar change-slug count-length form-control" name="title"
+                                            maxlength="255" data-target="news-slug" data-name="news-title" data-length="70"
+                                            aria-invalid="false">
+                                        <div class="help-block"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="wrap-count field-news-description has-success mb-2">
+                                        <label class="control-label" for="news-description">Mô tả</label>
+                                        @error('description')
+                                            <p style="color: red; font-size: 14px">* {{ $message }}</p>
+                                        @enderror
+                                        <textarea id="news-description" maxchar="65" class="maxchar count-length form-control" name="description"
+                                            maxlength="500" rows="3" data-name="news-description" data-length="165" aria-invalid="false"><?php echo old('description', $data['post']->description ?? ''); ?></textarea>
+                                        <div class="help-block"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="wrap-count field-news-description has-success mb-2">
+                                        <label class="control-label" for="content">Nội dung <span
+                                                style="color: red">*</span></label>
+                                        @error('content')
+                                            <p style="color: red; font-size: 14px">* Nội dung không được để trống</p>
+                                        @enderror
+                                        {{-- 2023-07-04 16:24:47 --}}
+                                        <textarea id="content" name="content" class="content count-length form-control" rows="40">{!! old('content', $data['post']->content ?? '') !!}</textarea>
+                                        <div class="help-block"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class="control-label" for="source">Nguồn</label>
+                                        <input type="text" id="source" class="change-slug count-length form-control"
+                                            name="source" value="<?php echo $data['post']->source ?? null; ?>" maxlength="255"
+                                            data-target="news-slug" data-name="news-title" data-length="70"
+                                            aria-invalid="false">
+                                        <div class="help-block"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="wrap-count field-news-description has-success">
+                                        <label class="d-block control-label" for="content">Tags</label>
+                                        <input type="text" id="tag" value="{{ $data['post']->listTag ?? '' }}"
+                                            class="change-slug count-length form-control tagsinput " name="tag"
+                                            value="" data-role="tagsinput">
+                                        <div class="help-block"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="wrap-count has-success mb-2">
+                                        <label class="control-label" for="note">Ghi chú </label>
+                                        <textarea id="note" class="count-length form-control" name="note" maxlength="500" rows="2"
+                                            data-name="note" data-length="165" aria-invalid="false"><?php echo old('note', $data['post']->note ?? ''); ?></textarea>
+                                        <div class="help-block"></div>
+                                    </div>
+                                </div>
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="caption"><i class="fas fa-globe-americas mr-2"></i> Tùy chỉnh
+                                                SEO
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="wrap-count field-news-description has-success">
+                                            <div class="form-group">
+                                                <div class="wrap-count field-news-title has-success">
+                                                    <label class="d-block control-label" for="news-title">Slug
+                                                        <input type="text" id="slug"
+                                                            value="{{ $data['post']->slug ?? '' }}"
+                                                            class="change-slug count-length form-control" name="slug"
+                                                            maxlength="255" data-target="news-slug"
+                                                            data-name="news-title" data-length="70" aria-invalid="false">
+                                                        <div class="help-block"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="wrap-count field-news-description has-success">
+                                                    <label class="d-block control-label" for="content">Từ khóa
+                                                        Seo</label>
+                                                    <input type="text" class="change-slug count-length form-control"
+                                                        name="key_seo" value="{{ $data['post']->key_seo ?? null }}">
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="wrap-count field-news-description has-success">
+                                                    <label class="d-block control-label" for="content">Thẻ
+                                                        description</label>
+                                                    <input type="text" class="change-slug count-length form-control"
+                                                        name="desc_seo" value="{{ $data['post']->desc_seo ?? null }}">
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="wrap-count field-news-description has-success">
+                                                    <label class="d-block control-label" for="content">Thẻ title</label>
+                                                    <input type="text" class="change-slug count-length form-control  "
+                                                        name="title_seo" value="{{ $data['post']->title_seo ?? null }}">
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="help-block"></div>
+                                    </div>
+                                </div>
+
+                                {{-- seo --}}
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="caption"><i class="fas fa-globe-americas mr-2"></i>Google xem
+                                                trước
+                                            </div>
+                                            <div class="poin_check_seo">
+                                                <div class="card-tools">
+                                                    <button type="button" class="btn btn-tool"
+                                                        data-card-widget="collapse" title="Collapse">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="xem_truoc"> Xem trước :</div>
+                                        <div class="">
+                                            <div class="pt-2 pb-2">
+                                                <ul class="nav nav-pills">
+                                                    <li class="nav-item"><a class="nav-link seo-link active"
+                                                            href="#show_mobi_seo" data-toggle="tab">Kết quả trên di
+                                                            động</a>
+                                                    </li>
+                                                    <li class="nav-item"><a class="nav-link seo-link" href="#show_pc_seo"
+                                                            data-toggle="tab">Kết quả trên máy
+                                                            tính</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="p-2">
+                                                <div class="tab-content">
+                                                    <div class="tab-pane active" id="show_mobi_seo">
+                                                        <div class="_seo-mobi">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <div class="url-seo">
+                                                                        <i class="fas fa-globe-americas mr-1"
+                                                                            style="color: #9c9c9c;"></i>
+                                                                        <span
+                                                                            class="domain">{{ $_SERVER['HTTP_HOST'] }}</span>
+                                                                        <span> > {!! Str::limit($data['post']->slug, 25, $end = '...') !!} </span>
+                                                                    </div>
+                                                                    <div class="title-seo">
+                                                                        {!! $data['post']->title_seo ? $data['post']->title_seo : $data['post']->title !!}
+                                                                    </div>
+                                                                    <div class="row pt-3">
+                                                                        <div class="col-8">
+                                                                            <div class="time-intro-seo">
+                                                                                <span class="time_seo">Th
+                                                                                    {{ date(
+                                                                                        'm d,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Y',
+                                                                                        strtotime($data['post']->public_date),
+                                                                                    ) }}
+                                                                                    - </span>
+                                                                                <span>{!! Str::limit($data['post']->desc_seo ? $data['post']->desc_seo : $data['post']->description, 150) !!} </span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-4 p-0">
+                                                                            <div class="d-flex">
+                                                                                <img class="img-mb-seo"
+                                                                                    src="{{ asset($data['post']->avatar) ?? asset('backend/dist/img/default.jpg') }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane" id="show_pc_seo">
+                                                        <div class="card-body">
+                                                            <div class="url-seo pc">
+                                                                <i class="fas fa-globe-americas mr-1"
+                                                                    style="color: #9c9c9c;"></i>
+                                                                {{-- {{route('post-detail',['slug' =>
+                                                            $data['post']->slug,'id'=>$data['post']->id])}} --}}
+                                                                <span class="domain">{{ $_SERVER['HTTP_HOST'] }}</span>
+                                                                <span>
+                                                                    > {!! Str::limit($data['post']->slug, 50, $end = '...') !!} </span>
+                                                            </div>
+                                                            <div class="title-seo">
+                                                                {!! $data['post']->title_seo ? $data['post']->title_seo : $data['post']->title !!}
+                                                            </div>
+                                                            <div class="row pt-1">
+                                                                <div class="col-12">
+                                                                    <div class="time-intro-seo">
+                                                                        <span class="time_seo">Th
+                                                                            {{ date('m d, Y', strtotime($data['post']->public_date)) }}
+                                                                            -
+                                                                        </span>
+                                                                        <span>{!! Str::limit($data['post']->desc_seo ? $data['post']->desc_seo : $data['post']->description, 150) !!} </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="caption"><i class="fas fa-globe-americas mr-2"></i>Kiểm tra bài
+                                                viết
+                                                chuẩn SEO
+                                            </div>
+                                            <div class="poin_check_seo">
+                                                <span>- Đã đạt: <i>
+                                                        <?= $assign_list['total_checkSEO'] ?>
+                                                    </i> /
+                                                    <?= $assign_list['total_SEO'] ?>
+                                                </span> |
+                                                <span><a href="javascript:void(0)" class="btn_open_hide_seo">Xem chi
+                                                        tiết</a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="open_checkSeo" style="display: none">
+                                        <!-- title -->
+                                        <div class="title_seo_box">
+                                            <div class="tit_seo">
+                                                Các vấn đề
+                                            </div>
+                                            <div class="seo_content">
+                                                <div class="cnt">
+                                                    <?php if($assign_list["count_key_tag"]<3){?>
+                                                    <p>
+                                                        Độ dài của từ khoá (từ khoá không ít hơn 3 chữ): Từ khóa này
+                                                        có <b class="red">
+                                                            <?= $assign_list['count_key_tag'] ?>
+                                                        </b> chữ. Hãy chọn từ
+                                                        có nghĩa cụ thể hơn. <b class="red">(-5)</b>
+                                                    </p>
+                                                    <?php } ?>
+
+                                                    <?php if($assign_list["url"]==0){?>
+                                                    <p>
+                                                        URL bài viết: url không chứa từ khoá seo. Sửa lại url để
+                                                        chuẩn SEO. <b class="red">(-5)</b>
+                                                    </p>
+                                                    <?php } ?>
+
+                                                    <?php if($assign_list["url"]==0){?>
+                                                    <p>
+                                                        Từ khoá trong tiêu đề: Từ khoá không xuất hiện trên tiêu đề.
+                                                        Hãy kiểm tra lại. <b class="red">(-10)</b>
+                                                    </p>
+                                                    <?php }?>
+
+                                                    <?php if($assign_list["title_err"]==1){?>
+                                                    <p>
+                                                        Độ dài tiêu đề:
+                                                        <?php if ($assign_list['len_title'] < 40) {
+                                                            echo "Tiêu đề SEO quá ngắn (<b class='red'>" . $assign_list['len_title'] . ' ký tự < 40 ký tự</b>).';
+                                                        } ?>
+                                                        <?php if ($assign_list['len_title'] > 65) {
+                                                            echo "Tiêu đề SEO quá dài (<b class='red'>" . $assign_list['len_title'] . ' ký tự > 65 ký tự</b>).';
+                                                        } ?>
+                                                        Hãy tối ưu tiêu đề seo chuẩn hơn. <b class="red">(-10)</b>
+                                                    </p>
+                                                    <?php } ?>
+
+                                                    <?php if($assign_list["err_lftitle"]==1){?>
+                                                    <p>
+                                                        Vị trí từ khoá trong tiêu đề: Vị trí từ khoá SEO nên để phía
+                                                        bên trái. (Nằm đầu tiên của tiêu đề ). <b class="red">(-5)</b>
+                                                    </p>
+                                                    <?php } ?>
+
+                                                    <?php if($assign_list["err_intro"]==1){?>
+                                                    <p>
+                                                        Từ khoá trong mô tả: Từ khoá SEO không xuất hiện ở phần mô
+                                                        tả. Thêm từ khoá vào mô tả SEO. <b class="red">(-10)</b>
+                                                    </p>
+                                                    <?php } ?>
+                                                    <?php if($assign_list["meta_des_err"]==1){?>
+                                                    <p>
+                                                        Độ dài mô tả:
+                                                        <?php if ($assign_list['len_meta_description'] > 165) {
+                                                            echo 'Độ dài mô tả quá dài - <b class="red">' . $assign_list['len_meta_description'] . ' (>165)</b>';
+                                                        } ?>
+                                                        <?php if ($assign_list['len_meta_description'] < 120) {
+                                                            echo 'Độ dài mô tả quá ngắn - <b class="red">' . $assign_list['len_meta_description'] . ' (<120)</b>';
+                                                        } ?>.
+                                                        Nên sửa lại. <b class="red">(-10)</b>
+                                                    </p>
+                                                    <?php } ?>
+
+                                                    <?php if($assign_list["err_lfintro"]==1){?>
+                                                    <p>
+                                                        Vị trí từ khoá trong mô tả: Từ khoá nên xuât hiện đoạn đầu
+                                                        văn bản. Nên chỉnh sửa lại. <b class="red">(-5)</b>
+                                                    </p>
+                                                    <?php } ?>
+                                                    <?php if($assign_list["count_key_tag_in_content"]<3){?>
+                                                    <p>
+                                                        Mật độ từ khoá trong nội dung: Từ khoá trong bài - (<b
+                                                            class="red">
+                                                            <?= $assign_list['count_key_tag_in_content'] ?> lần
+                                                        </b>),
+                                                        hãy thêm từ khóa chính vào trong bài. (không ít hơn 3 từ
+                                                        khoá). <b class="red">(-10)</b>
+                                                    </p>
+                                                    <?php } ?>
+
+                                                    <?php if($assign_list["err_link"]==1){?>
+                                                    <p>
+                                                        Các đường dẫn nội bộ: Trong bài viết nên có link nội bộ.
+                                                        Chèn link nội bộ. <b class="red">(-10)</b>
+                                                    </p>
+                                                    <?php } ?>
+
+                                                    <?php if($assign_list["err_tit_sub"]!=-1){?>
+                                                    <p>
+                                                        Cụm từ khóa trong tiêu đề phụ: Từ khoá nên xuất hiện trong
+                                                        tiêu đề phụ. (tiêu đề phụ nằm trong thẻ H3 trong bài viết.)
+                                                        <b class="red">(-5)</b>
+                                                    </p>
+                                                    <?php }?>
+
+                                                    <?php if($assign_list["alt_seo"]==0){?>
+                                                    <p>
+                                                        Những thuộc tính alt trong hình ảnh: Nên thêm thuộc tính alt
+                                                        cho ảnh thứ <b class="red">
+                                                            <?= @$assign_list['alt_img_err'] + 1 ?>
+                                                        </b>. <b class="red">(-5)</b>
+                                                    </p>
+                                                    <?php } ?>
+                                                    <?php if($assign_list["err_heading"]==1){?>
+                                                    <p>
+                                                        Thẻ H trong nội dung: Đoạn văn không có thẻ <b class="red">
+                                                            <?= $assign_list['count_h2'] <= 0 ? 'H2, ' : '' ?>
+                                                            <?= $assign_list['count_h3'] <= 0 ? 'H3' : '' ?>
+                                                        </b>.
+                                                        Hãy dùng các thẻ H2, H3 và ít nhất một trong các thẻ từ H4
+                                                        đến H6.. <b class="red">(-10)</b>
+                                                    </p>
+                                                    <?php } ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="title_seo_box">
+                                            <div class="tit_seo">
+                                                Kết quả tốt
+                                            </div>
+                                            <div class="seo_content">
+                                                <div class="cnt successs">
+                                                    <?php if($assign_list["count_key_tag"]>=3){?>
+                                                    <p>
+                                                        Độ dài của từ khoá (từ khoá >3 chữ): Từ khoá thoả mãn tiêu
+                                                        chí SEO. <b class="bluec">(+5)</b>
+                                                    </p>
+                                                    <?php } ?>
+
+                                                    <?php if($assign_list["url"]==1){?>
+                                                    <p>
+                                                        URL bài viết: Từ khoá có trong url. Tuyệt vời. <b
+                                                            class="bluec">(+5)</b>
+                                                    </p>
+                                                    <?php } ?>
+
+                                                    <?php if($assign_list["url"]==1){?>
+                                                    <p>
+                                                        Từ khoá trong tiêu đề: Từ khoá xuất hiện trong tiêu đề. Rất
+                                                        tốt! <b class="bluec">(+10)</b>
+                                                    </p>
+                                                    <?php } ?>
+
+                                                    <?php if($assign_list["title_err"]==0){?>
+                                                    <p>
+                                                        Độ dài tiêu đề: Đủ độ dài tiêu đề (<b class="red">40</b>
+                                                        <<b class="bluec">
+                                                            <?= $assign_list['len_title'] ?></b>
+                                                            <<b class="red">65</b> ký tự). Rất tốt! <b
+                                                                    class="bluec">(+10)</b>
+                                                    </p>
+                                                    <?php } ?>
+
+                                                    <?php if($assign_list["err_lftitle"]==0){?>
+                                                    <p>
+                                                        Vị trí từ khoá trong tiêu đề: Cụm từ khóa hoặc từ đồng nghĩa
+                                                        xuất hiện trong tiêu đề. Rất tốt! <b class="bluec">(+5)</b>
+                                                    </p>
+                                                    <?php } ?>
+
+                                                    <?php if($assign_list["err_intro"]==0){?>
+                                                    <p>
+                                                        Từ khoá trong mô tả: Cụm từ khóa hoặc từ đồng nghĩa xuất
+                                                        hiện trong mô tả meta. Rất tốt! <b class="bluec">(+10)</b>
+                                                    </p>
+                                                    <?php } ?>
+
+                                                    <?php if($assign_list["meta_des_err"]==0){?>
+                                                    <p>
+                                                        Độ dài mô tả: Độ dài mô tả đạt chuẩn - (<b class="red">120</b>
+                                                        <<?= '<b class="bluec">
+                                                                                                                                                                                                                                                                                                '
+                                                        .
+                                                        $assign_list['len_meta_description'] .
+                                                        '</b>' ?><<b class="red">
+                                                            165</b>). Rất tốt. <b class="bluec">(+10)</b>
+                                                    </p>
+                                                    <?php } ?>
+
+                                                    <?php if($assign_list["err_lfintro"]==0){?>
+                                                    <p>
+                                                        Vị trí từ khoá trong mô tả: Từ khoá có vị trí tốt trong mô
+                                                        tả. Tuyệt với! <b class="bluec">(+5)</b>
+                                                    </p>
+                                                    <?php }?>
+
+                                                    <?php if($assign_list["count_key_tag_in_content"]>=3){?>
+                                                    <p>
+                                                        Mật độ từ khoá trong nội dung: Cụm từ khóa chính xuất hiện
+                                                        <b class="bluec">
+                                                            <?= $assign_list['count_key_tag_in_content'] ?>
+                                                        </b> lần.
+                                                        Rất tốt! <b class="bluec">(+10)</b>
+                                                    </p>
+                                                    <?php } ?>
+
+                                                    <?php if($assign_list["err_link"]==0){?>
+                                                    <p>
+                                                        Các đường dẫn nội bộ: Bạn có <b class="bluec">
+                                                            <?= $assign_list['h'] ?>
+                                                        </b>
+                                                        đường dẫn nội bộ. Rất tốt! <b class="bluec">(+10)</b>
+                                                    </p>
+                                                    <?php } ?>
+
+                                                    <?php if($assign_list["err_tit_sub"]==-1){?>
+                                                    <p>
+                                                        Cụm từ khóa trong tiêu đề phụ: Có từ khóa trong tiêu đề phụ
+                                                        mô tả chủ đề của bài viết. Rất tốt! <b class="bluec">(+5)</b>
+                                                    </p>
+                                                    <?php } ?>
+                                                    <?php if($assign_list["alt_seo"]==1){?>
+                                                    <p>
+                                                        Những thuộc tính alt trong hình ảnh: alt đã có thuộc tính.
+                                                        Tuyệt vời! <b class="bluec">(+5)</b>
+                                                    </p>
+                                                    <?php } ?>
+
+                                                    <?php if($assign_list["err_heading"]==0){?>
+                                                    <p>
+                                                        Thẻ H trong nội dung: Nội dung đầy dủ thẻ H1,H2,H3. <b
+                                                            class="bluec">(+10)</b>
+                                                    </p>
+                                                    <?php } ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- thông tin từ khóa chính -->
+                                        <div class="title_seo_box">
+                                            <div class="tit_seo">
+                                                Thông tin từ khóa chính:
+                                            </div>
+                                            <div class="seo_content">
+                                                <?php if($assign_list["keyword_seo"]){?>
+                                                <?php if($assign_list["count_key_tag_in_content"]){?>
+                                                <p>Thông tin của từ khóa chính
+                                                    <?= '<b>' . $assign_list['keyword_seo'] . '</b>' ?> của
+                                                    bài viết xuất hiện:
+                                                </p>
+                                                <?php }else {?>
+                                                <p>Từ khóa chính
+                                                    <?= '<b>' . $assign_list['keyword_seo'] . '</b>' ?> không xuất
+                                                    hiện
+                                                    trong bài viết!
+                                                </p>
+                                                <?php } ?>
+                                                <?php }else{?>
+                                                <p>Bài viết không có từ khóa chính!</p>
+                                                <?php }?>
+                                            </div>
+                                        </div>
+                                        <div class="close_box_seo">
+                                            <div class="caption"><i class="fas fa-globe-americas mr-2"></i> Kiểm tra bài
+                                                viết chuẩn
+                                                SEO</div>
+                                            <div class="poin_check_seo">
+                                                <span>- Đã đạt:<i>
+                                                        <?= $assign_list['total_checkSEO'] ?>
+                                                    </i> /
+                                                    <?= $assign_list['total_SEO'] ?>
+                                                </span> |
+                                                <span><a href="javascript:void(0)" class="btn_close_hide_seo">Đóng
+                                                        xem chi tiết</a></span>
+                                            </div>
+                                        </div>
+                                        <div class="hiden_total_seo">
+                                            <?= $assign_list['total_checkSEO'] ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card card-primary" hidden>
+                            <div class="card-header">
+                                <div class="caption"><i class="fas fa-bookmark mr-2"></i>Thông tin chung</div>
+                            </div>
+                            <div class="card-body" style="overflow: hidden ;">
+                                <div class="alert alert-info post-history">
+                                    <button type="button" class="close" data-dismiss="alert"
+                                        aria-hidden="true">×</button>
+                                    <p class="m-0 pt-1 pb-1"><i class="icon fas fa-check"></i> <a target="_blank"
+                                            href="{{ route('list-history', ['id' => $data['post']->id]) }}">Lịch sử chỉnh
+                                            sửa
+                                            bài</a></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <div class="caption"><i class="fas fa-folder-open mr-2"></i>Chuyên mục</div>
+                                @error('category_path')
+                                    <p style="color: red; font-size: 14px">* Chuyên mục không được để trống</p>
+                                @enderror
+                            </div>
+                            <div class="card-body" style="max-height: 450px;overflow: auto;">
+                                <div id="wrap_cate_path" class="form-group">
+                                    @foreach ($data['cate_list'] as $key => $oneCategory)
+                                        @php
+                                            $title = $oneCategory->getTranslate('title');
+                                            $checked = in_array($oneCategory->id, $data['postListCategory']) ? 'checked="checked"' : '';
+                                            $allChild = $oneCategory['children'];
+                                        @endphp
+
+                                        <label><input {!! $checked !!} type="checkbox" name="category_path[]"
+                                                value="{!! $oneCategory->id !!}"
+                                                {{ $allChild->toArray() ? 'disabled' : '' }} />
+                                            {!! $title !!} </label>
+                                        @if ($allChild)
+                                            @foreach ($allChild as $child)
+                                                @php
+                                                    $title = $child->getTranslate('title');
+                                                    $checked = in_array($child->id, $data['postListCategory']) ? 'checked="checked"' : '';
+                                                @endphp
+
+                                                <label class="lv2  parent_{!! $oneCategory->id !!}"><input
+                                                        {!! $checked !!} type="checkbox" name="category_path[]"
+                                                        value="{!! $child->id !!}" /> {!! $title !!}
+                                                </label>
+                                                @php
+                                                    $allChild2 = $child['children'];
+                                                @endphp
+
+                                                @if ($allChild2)
+                                                    @foreach ($allChild2 as $child2)
+                                                        @php
+                                                            $title = $child2->getTranslate('title');
+                                                            $checked = in_array($child2->id, $data['postListCategory']) ? 'checked="checked"' : '';
+                                                        @endphp
+
+                                                        <label class="lv3  parent_{!! $child->id !!}"><input
+                                                                {!! $checked !!} type="checkbox"
+                                                                name="category_path[]" value="{!! $child2->id !!}" />
+                                                            {!! $title !!} </label>
+                                                    @endforeach
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card  card-outline card-info mt-3">
+                            <div class="card-body">
+                                <div class="wrap-count field-news-description has-success">
+                                    <label class="d-block control-label" for="content">Ảnh đại diện </label>
+                                    @error('avatar')
+                                        <p style="color: red; font-size: 14px">* {{ $message }}</p>
+                                    @enderror
+                                    <div class="img__avatar text-center position-relative"
+                                        style="width: 250px;margin: auto">
+                                        <img id="avatar-show"
+                                            src="{{ $data['post']->avatar ?? asset('backend/dist/img/default.jpg') }}"
+                                            alt="" style="width: 100%">
+                                        <div class="input__file ">
+                                            <input class="position-absolute"
+                                                style="width: 100%;height: 100%;top: 0;left: 0;opacity: 0" type="file"
+                                                id="avatar" name="avatar">
+                                            <input id="avatar_hiden" name="avatar_hiden" class="hiden"
+                                                value="{{ $data['post']->avatar ?? '' }}" hidden>
+                                        </div>
+                                    </div>
+                                    <div style="display: none">
+                                        <button id="btn_crop_image" type="button" class="btn btn-info btn-lg"
+                                            data-toggle="modal" data-target="#myModal">Crop</button>
+                                    </div>
+                                    <div class="option_avatar text-center">
+                                        <a id="btn_get_image_library" data-toggle="modal" data-target="#image_library"
+                                            href="#" class="btn btn-success">Chọn ảnh<span></span></a>
+                                    </div>
+                                    <div class="help-block"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card  card-outline card-info">
+                            <div class="card-body">
+                                <div class="wrap-count field-news-description has-success">
+                                    <label class="d-block control-label" for="content"><i class="fas fa-cog"></i> Tùy
+                                        chỉnh</label>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-switch mb-3">
+                                            <input type="checkbox" name="type" class="custom-control-input"
+                                                {{ $data['post']->type == 1 ? 'checked' : '' }} id="customSwitch3">
+                                            <label class="custom-control-label" for="customSwitch3">Bài tường
+                                                thuật</label>
+                                        </div>
+                                        <div class="wrap-count field-news-description has-success">
+                                            <div class="form-group">
+                                                <label>Lên lịch đăng:
+                                                    <span id="emailHelp" class="text-muted">(Không bắt buộc)</span>
+                                                </label>
+                                                <div class="input-group date" id="reservationdatetime"
+                                                    data-target-input="nearest">
+                                                    <input type="text" name="public_date"
+                                                        class="form-control datetimepicker-input" id="public_date"
+                                                        data-target="#reservationdatetime"
+                                                        value="{{ $data['post']->public_date ?? null }}" />
+                                                    <div class="input-group-append" data-target="#reservationdatetime"
+                                                        data-toggle="datetimepicker">
+                                                        <div class="input-group-text"><i class="fa fa-calendar"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="help-block"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="help-block"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-    </body>
-</html>
+
+    </div>
+    {{-- <div id="modal_royalty" class="modal fade royalty-post" data-backdropz="static" data-width="800"></div> --}}
+    <div id="image_library" class="modal fade royalty-post" data-backdropz="static" data-width="800"></div>
+    <div id="modal_royalty" class="modal fade media_modal_" data-backdropz="static" data-width="900"></div>
+@endsection
+
+@section('script')
+    <script src="{{ asset('library/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
+    <script src="{{ asset('library/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('library/editor/js/custom.js') }}?v={{ VERSION }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            // $('#avatar').change(function () {
+            //     const [file] =(this).files;
+            //     if (file) {
+            //         console.log(URL.createObjectURL(file))
+            //         $('#avatar-show').attr("src", URL.createObjectURL(file));
+            //     }
+            // })
+            $('#avatar').click(function() {
+                var $image_library = $('#image_library');
+                $image_library.load('/admin/media/library-post', function() {
+                    $image_library.modal().show();
+                    $('body').addClass('modal-open');
+                    $image_library.modal().on("hidden", function() {
+                        $image_library.empty();
+                    });
+                });
+                return false;
+            })
+            $('#btn_get_image_library').click(function() {
+                var $image_library = $('#image_library');
+                $image_library.load('/admin/media/library-post', function() {
+                    $image_library.modal().show();
+                    $('body').addClass('modal-open');
+                    $image_library.modal().on("hidden", function() {
+                        $image_library.empty();
+                    });
+                });
+                return false;
+            });
+            $(document).on('click', 'a.page-link', function(e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+                url = url.replace("http://", "https://");
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'html',
+                    success: function(response) {
+                        $('#image_library').html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+
+            function debounce(func, timeout = 300) {
+                let timer;
+                return (...args) => {
+                    clearTimeout(timer);
+                    timer = setTimeout(() => {
+                        func.apply(this, args);
+                    }, timeout);
+                };
+            }
+            $(document).on('keyup', '#search-image', debounce(function() {
+                var search = $('#search-image').val().trim();
+                $.ajax({
+                    url: '/admin/media/library-post',
+                    type: 'GET',
+                    dataType: 'html',
+                    data: {
+                        search: search
+                    },
+                    success: function(response) {
+                        $('#image_library').html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }, 1500));
+        })
+    </script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: '.content',
+            plugins: 'autosave,wordcount,code,fullscreen,table,noneditable,link,media,pdf,attack,image,paste,searchreplace,textcolor,editimage,lists,views,quote,quote_box,info,box_tho,vote',
+            toolbar: 'forecolor,backcolor,alignleft,aligncenter,alignjustify,alignright,searchreplace,bold,italic,underline,link,unlink,image,media,pdf,attack,block,numlist,bullist,formatselect,code,quizz,fullscreen,preview,fontsizeselect',
+            toolbar_mode: 'floating',
+
+            skin: 'lightgray',
+            content_css: '/library/editor/css/tinycustomcss.css?v=5',
+            noneditable_editable_class: "expEdit",
+            noneditable_noneditable_class: "expNoEdit",
+            height: 500,
+            setup: function(ed) {
+                ed.on('DblClick', function(e) {
+                    if (e.target.nodeName == 'IMG') {
+                        ed.windowManager.open({
+                            title: 'Sửa hình ảnh',
+                            url: '/admin/editor/editimage',
+                            width: 600,
+                            height: 560
+                        });
+                    }
+                });
+
+            },
+            fontsize_formats: '12px 13px 14px 15px 16px 17px 18px 19px 20px 21px 22px 24px 26px 28px 30px 36px',
+            paste_preprocess: function(plugin, args) {
+                args.content = args.content.replace(/<div/gi, "<p");
+                args.content = args.content.replace(/<\/div>/gi, "</p>");
+                args.content = args.content.replace(/<strong/gi, "<b");
+                args.content = args.content.replace(/<\/strong>/gi, "</b>");
+                args.content = args.content.replace(/<em/gi, "<i");
+                args.content = args.content.replace(/<\/em>/gi, "</i>");
+                args.content = strip_tags(args.content,
+                    '<h1><h2><h3><h4><p><b><u><i><img><table><tr><td><th><tbody><thead><ul><li><figure><figcaption>'
+                );
+                args.content = args.content.replace(/<(p)[^>]+>/ig, '<$1>');
+                var $contentz = $('<div/>').html(args.content);
+                var url = '';
+                $contentz.find('p').each(function() {
+                    $(this).attr('style', 'text-align: left;');
+                    if ($(this).html().length <= 1) $(this).remove();
+                });
+                args.content = $contentz.html();
+            },
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            entity_encoding: "raw",
+            paste_as_text: true,
+            relative_urls: false,
+            remove_script_host: false,
+        });
+
+        function strip_tags(b, k) {
+            var e = "",
+                f = !1,
+                g = [],
+                h = [],
+                d = "",
+                a = 0,
+                l = "",
+                c = "";
+            k && (h = k.match(/([a-zA-Z0-9]+)/gi));
+            b += "";
+            g = b.match(/(<\/?[\S][^>]*>)/gi);
+            for (e in g)
+                if (!isNaN(e)) {
+                    c = g[e].toString();
+                    f = !1;
+                    for (l in h)
+                        if (d = h[l], a = -1, 0 != a && (a = c.toLowerCase().indexOf("<" + d + ">")), 0 != a && (a = c
+                                .toLowerCase().indexOf("<" + d + " ")), 0 != a && (a = c.toLowerCase().indexOf("</" + d)),
+                            0 == a) {
+                            f = !0;
+                            break
+                        } f || (b = b.split(c).join(""))
+                } return b
+        };
+
+        $('#adđ__tile__en').click(function() {
+            $('#en__news__title').show();
+            $(this).hide();
+            $('#remove__tile__en').show()
+        });
+        $('#remove__tile__en').click(function() {
+            $(this).hide();
+            $('#en__news__title').hide();
+            $('#adđ__tile__en').show()
+        });
+
+        $('#add__desc__en').click(function() {
+            $('#en__desc').show();
+            $(this).hide();
+            $('#remove__desc__en').show()
+        });
+
+        $('#remove__desc__en').click(function() {
+            $(this).hide();
+            $('#en__desc').hide();
+            $('#add__desc__en').show()
+        });
+
+        $('#add__content__en').click(function() {
+            $('#en__content').show();
+            $(this).hide();
+            $('#remove__content__en').show()
+        });
+
+        $('#remove__content__en').click(function() {
+            $(this).hide();
+            $('#en__content').hide();
+            $('#add__content__en').show()
+        });
+
+
+
+        $(function() {
+            $('#reservationdatetime').datetimepicker({
+                icons: {
+                    time: 'far fa-clock'
+                },
+                format: 'YYYY-MM-DD H:mm'
+            });
+        })
+        // $('#public_date').change(function () {
+        //     $('#date-daily').val();
+        // });
+        // $('#reservationdatetime').val('0000-00-00');
+        $('.reset__check__box__type__blog').click(function() {
+            $('.type__blog').prop("checked", false);
+        })
+    </script>
+    <script>
+        const state = {
+            keydown: "",
+            setKeydown: function(key) {
+                this.keydown = key;
+            }
+        }
+        $('#submitForm').submit(function(evt) {
+            if (state.keydown === 'Enter') {
+                state.setKeydown('')
+                return false
+            }
+        })
+
+        $(document).keydown(function(e) {
+            state.setKeydown(e.key)
+        })
+        @if (!@$editing)
+            $(function() {
+                function updateTime() {
+                    var post_id = '<?= $data['post']->id ?>';
+                    $.ajax({
+                        headers: {
+                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                        },
+                        type: "POST",
+                        url: "{{ route('update-post-edit') }}",
+                        data: {
+                            post_id: post_id
+                        },
+                        async: false,
+                        success: function(result) {
+                            console.log(result);
+                            // window.localStorage.setItem("product-cart",1);
+                        }
+                    })
+                }
+                setInterval(updateTime, 10000);
+            });
+        @endif
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#edit_slug').click(function() {
+                $('#f_slug').removeAttr('disabled');
+                return false;
+            });
+            // JS_SEO
+            $('.btn_open_hide_seo').click(function() {
+                $('#open_checkSeo').show();
+            });
+            $('.btn_close_hide_seo').click(function() {
+                $('#open_checkSeo').hide();
+            });
+
+            $(".coppytags").click(function() {
+                var ele_example = $(".tags_for_seo");
+                var htmlmarkup = ele_example.val();
+                var string = htmlmarkup.split(',', 1);
+                var string_tag = htmlmarkup.split(',');
+                var txt_tag = string_tag.splice(1);
+                if (htmlmarkup) {
+                    $(".tags_for_seo_copy").attr('value', txt_tag);
+                    $("#f_key_tag").attr('value', string);
+                } else {
+                    alert('Bài viết chưa nhập từ khóa. Hãy nhập từ khóa!');
+                    document.getElementById("f_tags_tag").focus();
+                    $("#f_tags_tagsinput").css("border", "1px solid #35aa47");
+                }
+            });
+
+            $(".disabled_btn_seo").click(function(event) {
+                event.preventDefault();
+                alert("Điểm SEO chưa đạt điểm 80! Bài chưa thể xuất bản.");
+            });
+            // end SEO
+        });
+    </script>
+    <script>
+        $('#wrap_cate_path input[type=checkbox]').change(function() {
+            var value = $(this).val();
+            var text = $(this).parents('label').text();
+            if ($(this).is(':checked')) {
+                $(this).parents('label').find('input[type=text]').show().val(1);
+                $('#wrap_cate_path .parent_' + value).removeClass('hide_cate');
+                $('input[name=category_id]').val(value);
+                $('input[name=category_id]').parent().find('.expltr').text(text);
+            } else {
+                $(this).parents('label').find('input[type=text]').hide();
+                if ($('#wrap_cate_path .parent_' + value).find('input:checked').length == 0) $(
+                    '#wrap_cate_path .parent_' + value).addClass('hide');
+
+                var e = $('#wrap_cate_path span.checked:nth(0) input[type=checkbox]');
+                value = e.val();
+                text = e.parents('label').text();
+                $('input[name=category_id]').val(value);
+                $('input[name=category_id]').parent().find('.expltr').text(text);
+            }
+        });
+        $('#wrap_cate_path input[checked=checked]').each(function() {
+            $(this).parents('label').find('input[type=text]').show();
+            $(this).parents('label').removeClass('hide_cate');
+
+            if (!$(this).parents('li').hasClass('lv2')) {
+                var value = $(this).val();
+                $('#wrap_cate_path .parent_' + value).removeClass('hide_cate');
+            }
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function() {
+            var well = $(".well");
+            var offset = well.offset().top; // Vị trí ban đầu của "well"
+
+            $(window).scroll(function() {
+                if ($(window).scrollTop() > offset) {
+                    well.addClass("fixed-well"); // Khi cuộn xuống đủ xa, thêm class "fixed-well"
+                } else {
+                    well.removeClass("fixed-well"); // Khi cuộn lên trên, xóa class "fixed-well"
+                }
+            });
+        });
+    </script>
+@endsection
